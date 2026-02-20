@@ -1,18 +1,14 @@
 # Virtual Environment
+my_env/
 venv/
-env/
+.env
+
+# Frontend
+frontend/
+
+# Old backend folder
+backend/
 
 # Python cache
 __pycache__/
 *.pyc
-
-# Environment variables
-.env
-
-# Node modules (if React/Vite frontend)
-node_modules/
-dist/
-build/
-
-# VS Code
-.vscode/

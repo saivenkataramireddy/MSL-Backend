@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from ..database import get_db
-from .. import models
-from ..auth import get_current_user
+from database import get_db
+import models
+from auth import get_current_user
 
 router = APIRouter(prefix="/notifications", tags=["Notifications"])
 

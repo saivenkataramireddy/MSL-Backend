@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from .. import schemas, crud, models
-from ..database import get_db
-from ..auth import get_current_user, require_msl_or_agm_or_hod
+import schemas, crud, models
+from database import get_db
+from auth import get_current_user, require_msl_or_agm_or_hod
 
 
 router = APIRouter(prefix="/doctors", tags=["Doctors"])

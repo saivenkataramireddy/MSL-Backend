@@ -10,8 +10,8 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from .database import get_db
-from . import models, schemas
+from database import get_db
+import models, schemas
 
 # ─── Config ────────────────────────────────────────────────────────────────────
 SECRET_KEY = "msl-super-secret-key-change-in-production-2024"
