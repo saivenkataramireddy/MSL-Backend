@@ -4,9 +4,10 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.engine import URL
 from dotenv import load_dotenv
 
-load_dotenv()
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+env_path = os.path.join(BASE_DIR, ".env")
+load_dotenv(env_path)
+
 ca_path = os.path.join(BASE_DIR, "ca.pem")
 
 url_object = URL.create(
@@ -14,7 +15,7 @@ url_object = URL.create(
     username=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
     host=os.getenv("DB_HOST"),
-    port=int(os.getenv("DB_PORT")),
+    port=int(os.getenv("DB_PORT", "3306")),
     database=os.getenv("DB_NAME"),
 )
 
