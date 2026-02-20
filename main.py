@@ -1,17 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
+from database import engine, Base
 
-from .routers import auth
-from .routers import users
-from .routers import doctors
-from .routers import interactions
-from .routers import roles
-from .routers import tour
-from .routers import objections
-from .routers import knowledge
-from .routers import office
-from .routers import notifications
+from routers import auth
+from routers import users
+from routers import doctors
+from routers import interactions
+from routers import roles
+from routers import tour
+from routers import objections
+from routers import knowledge
+from routers import office
+from routers import notifications
 
 Base.metadata.create_all(bind=engine)
 
@@ -49,4 +49,4 @@ def home():
         "message": "Welcome to MSL Engagement Module",
         "status": "Running",
         "docs": "/docs",
-    }
+    }   
