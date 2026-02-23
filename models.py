@@ -56,9 +56,11 @@ class Doctor(Base):
     hospital = Column(String(150))
     region = Column(String(100))
     therapy_area = Column(String(150))
-    crm_reference_id = Column(String(100))
+    assigned_msl_id = Column(String(36), ForeignKey("users.id"), nullable=True)
     is_active = Column(Boolean, default=True)
     created_at = Column(TIMESTAMP, server_default=func.now())
+
+    assigned_msl = relationship("User")
 
 # MSL ENGAGEMENT REQUEST
 class MSLRequest(Base):

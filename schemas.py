@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional, Union
+from typing import Optional, Union, List
 import enum
 
 
@@ -15,8 +15,7 @@ class TokenData(BaseModel):
 class RoleResponse(BaseModel):
     id: str
     name: str
-    description: str
-
+    description: Optional[str] = None
     class Config:
         from_attributes = True
 
@@ -29,10 +28,19 @@ class UserCreate(BaseModel):
     region: Optional[str]
 
 
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    role_id: Optional[str] = None
+    region: Optional[str] = None
+    is_active: Optional[bool] = None
+
 class UserResponse(BaseModel):
     id: str
     full_name: str
     email: str
+    is_active: bool
+    role: Optional[RoleResponse] = None
 
     class Config:
         from_attributes = True
@@ -63,6 +71,12 @@ class DoctorResponse(BaseModel):
     id: str
     name: str
     specialty: str
+    hospital: str
+    region: str
+    therapy_area: str
+    assigned_msl_id: Optional[str] = None
+    is_active: bool
+    assigned_msl: Optional[UserResponse] = None
 
     class Config:
         from_attributes = True
@@ -70,7 +84,7 @@ class DoctorResponse(BaseModel):
 # Tour Schema
 
 class TourPlanCreate(BaseModel):
-    msl_id: str
+    msl_id: Optional[str] = None
     month: int
     year: int
 
@@ -80,6 +94,7 @@ class TourPlanResponse(BaseModel):
     month: int
     year: int
     status: str
+    msl: Optional[UserResponse] = None
 
     class Config:
         from_attributes = True
@@ -88,7 +103,7 @@ class TourPlanResponse(BaseModel):
 
 class InteractionCreate(BaseModel):
     doctor_id: str
-    msl_id: str
+    msl_id: Optional[str] = None
     visit_date: str
     topics_discussed: str
     scientific_depth: int
@@ -111,7 +126,7 @@ class InteractionResponse(BaseModel):
 class ObjectionCreate(BaseModel):
     doctor_id: str
     interaction_id: str
-    raised_by: str
+    raised_by: Optional[str] = None
     objection_text: str
     category: str
 
@@ -130,7 +145,7 @@ class KnowledgeCreate(BaseModel):
     title: str
     content: str
     category: str
-    created_by: str
+    created_by: Optional[str] = None
 
 
 class KnowledgeResponse(BaseModel):
@@ -143,7 +158,7 @@ class KnowledgeResponse(BaseModel):
 
 # OFFICE ACTIVITY
 class OfficeActivityCreate(BaseModel):
-    msl_id: str
+    msl_id: Optional[str] = None
     activity_date: str
     category: str
     summary: str

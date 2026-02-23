@@ -12,6 +12,7 @@ from routers import objections
 from routers import knowledge
 from routers import office
 from routers import notifications
+from routers import analytics
 
 Base.metadata.create_all(bind=engine)
 
@@ -24,7 +25,7 @@ app = FastAPI(
 # ─── CORS (allow React dev server) ────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5174","https://medical-science-liasion.netlify.app"],
+    allow_origins=["http://localhost:3000", "http://localhost:5173","https://medical-science-liasion.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,6 +42,7 @@ app.include_router(objections.router)  # /objections/
 app.include_router(knowledge.router)   # /knowledge/
 app.include_router(office.router)      # /office-activities/
 app.include_router(notifications.router) # /notifications/
+app.include_router(analytics.router)     # /analytics/
 
 
 @app.get("/", tags=["Root"])

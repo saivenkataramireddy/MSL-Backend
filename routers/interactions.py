@@ -11,14 +11,18 @@ router = APIRouter(prefix="/interactions", tags=["Interactions"])
 def create_interaction(
     data: schemas.InteractionCreate,
     db: Session = Depends(get_db),
-    _: models.User = Depends(require_msl),
+    current_user: models.User = Depends(require_msl),
 ):
+    data.msl_id = current_user.id
     return crud.create_interaction(db, data)
 
 
 @router.get("/", response_model=list[schemas.InteractionResponse])
 def get_all_interactions(
     db: Session = Depends(get_db),
-    _: models.User = Depends(get_current_user),
+    current_user: models.User = Depends(get_current_user),
 ):
-    return db.query(models.DoctorInteraction).all()
+    query = db.query(models.DoctorInteraction)
+    if current_user.role and current_user.role.name == "MSL":
+        query = query.filter(models.DoctorInteraction.msl_id == current_user.id)
+    return query.all()
